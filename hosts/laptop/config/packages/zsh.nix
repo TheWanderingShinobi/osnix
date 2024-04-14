@@ -5,6 +5,54 @@
   ...
 }: {
   home.shellAliases = {
+
+   # Utils
+      c = "clear";
+      cat = "bat";
+      nano = "micro";
+      code = "vscode";
+
+      l = "eza --icons  -a --group-directories-first -1"; #EZA_ICON_SPACING=2
+      ll = "eza --icons  -a --group-directories-first -1 --no-user --long";
+      tree = "eza --icons --tree --group-directories-first";
+
+      # Nixos
+      cdnix = "cd ~/osnix && nvim ~/osnix";
+      ns = "nix-shell --run zsh";
+      nix-shell = "nix-shell --run zsh";
+      nix-switch = "sudo nixos-rebuild switch --flake ~/osnix#laptop";
+      nix-switchu = "sudo nixos-rebuild switch --upgrade --flake ~/osnix#laptop";
+      nix-flake-update = "sudo nix flake update ~/osnix#";
+      nix-clean = "sudo nix-collect-garbage && sudo nix-collect-garbage -d && sudo rm /nix/var/nix/gcroots/auto/* && nix-collect-garbage && nix-collect-garbage -d";
+      # nix-clean = "sudo nix-collect-garbage -d";
+      # nix-cleanold = "sudo nix-collect-garbage --delete-old";
+      # nix-cleanboot = "sudo /run/current-system/bin/switch-to-configuration boot";
+
+      # Git
+      ga   = "git add";
+      gaa  = "git add --all";
+      gs   = "git status";
+      gb   = "git branch";
+      gm   = "git merge";
+      gpl  = "git pull";
+      gplo = "git pull origin";
+      gps  = "git push";
+      gpst = "git push --follow-tags";
+      gpso = "git push origin";
+      gc   = "git commit";
+      gcm  = "git commit -m";
+      gtag = "git tag -ma";
+      gch  = "git checkout";
+      gchb = "git checkout -b";
+      gcoe = "git config user.email";
+      gcon = "git config user.name";
+
+      # g = "lazygit";
+
+      # python
+      piv = "python -m venv .venv";
+      psv = "source .venv/bin/activate";
+ 
     # rm alias
     rm = "rm -i";
     # clear
@@ -37,6 +85,7 @@
     free = "free -mt";
     ps = "ps auxf";
     psgrep = "ps aux | grep -v grep | grep -i -e VSZ -e";
+
   };
   programs.zsh = {
     enable = true;
@@ -49,20 +98,19 @@
       dots = "$HOME/nixos-hyprland";
       docs = "$HOME/Documents";
       down = "$HOME/Downloads";
-      paperwork = "$HOME/Documents/Work/Paperwork";
+      nas = "$HOME/Frontdoor/";
       work = "$HOME/Documents/Work";
       personal = "$HOME/Documents/Personal";
     };
     initExtra = ''
       krabby random
       bindkey '^ ' autosuggest-accept
-      export OPENAI_API_KEY="$(cat ~/.secrets/openai_api_key.txt)"
       export DIRENV_LOG_FORMAT=""
-      eval "$(gh copilot alias -- zsh)"
+      export PATH="$PATH:$HOME/.cargo/bin"
     '';
     sessionVariables = {
       EDITOR = "nvim";
-      TERM = "xterm-256color";
+      TERM = "kitty";
       USE_EDITOR = "$EDITOR";
       VISUAL = "$EDITOR";
       BROWSER = "firefox";

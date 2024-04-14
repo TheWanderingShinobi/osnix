@@ -4,6 +4,12 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     hyprland.url = "github:hyprwm/Hyprland";
+    sddm-sugar-candy-nix = {
+    url = "gitlab:Zhaith-Izaliel/sddm-sugar-candy-nix";
+    inputs.nixpkgs.follows = "nixpkgs";
+  };
+
+
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -14,6 +20,8 @@
     self,
     nixpkgs,
     home-manager,
+    sddm-sugar-candy-nix,
+
     ...
   }: 
     let
@@ -24,7 +32,9 @@
       specialArgs = {inherit inputs self user;};
       modules = [
         ./hosts/laptop/system/configuration.nix
+#        ./hosts/laptop/system/virtualisation.nix
         home-manager.nixosModules.home-manager
+        sddm-sugar-candy-nix.nixosModules.default
         {
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;

@@ -11,3 +11,5 @@
 
 pkg/
 src/
+hosts/laptop/config/packages/config/hypr/monitors.conf
+hosts/laptop/config/packages/config/hypr/userprefs.conf

@@ -23,11 +23,18 @@
       fsType = "vfat";
     };
 
-  fileSystems."/media/truenas" = {
-    device = "192.168.0.232:/Frontdoor";
+  fileSystems."/media/export" = {
+    device = "192.168.0.232:/mnt/TheIronGate/Frontdoor";
     fsType = "nfs";
-    options = [ "x-systemd.automount" "noauto" "x-systemd.after=network-online.target" "x-systemd.mount-timeout=90" ];
+    options = [ "x-systemd.automount" "noauto" "x-systemd.after=network-online.target" "x-systemd.mount-timeout=90" ] ;
   };
+
+  fileSystems."/home/keeper/Frontdoor" = {
+    device = "//192.168.0.232/Frontdoor";
+    fsType = "cifs";
+    options = [ "credentials=/etc/samba/samba_credentials" "x-systemd.automount" "noauto" "uid=1000" "gid=1000" ];
+};
+
 
   swapDevices = [ ];
 

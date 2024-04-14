@@ -20,7 +20,7 @@ in {
     homeDirectory = "/home/${username}";
     stateVersion = "23.11";
 
-  #programs.home-manager.enable = true;
+    programs.home-manager.enable = true;
 
 
     packages = with pkgs; [
@@ -45,25 +45,26 @@ in {
      imagemagick                                            # for image processing
 # --------------------------------------------------- // Theming
      nwg-look                                               # gtk configuration tool
-     qt5ct                                                  # qt5 configuration tool
-     qt6ct                                                  # qt6 configuration tool
+#     qt5ct                                                  # qt5 configuration tool
+#     qt6ct                                                  # qt6 configuration tool
 # --------------------------------------------------- // Applications
-      wofi
-      gammastep
-      libsForQt5.okular
-      pandoc
       ark
       bat
+      bottom
       broot
       btop
       cargo
       cava
+      calcure
+      calcurse
       cbonsai
       cmatrix
+      cifs-utils
       cbonsai
       celluloid
       dolphin
-      dunst                                               # notification daemon
+      dunst # notification daemon
+      du-dust
       efibootmgr
       espanso
       eza
@@ -75,10 +76,14 @@ in {
       fontconfig
       firefox
       fish
+      freerdp
       freetype
       fuse-common
       fzf
+      hyprpaper
       hyprland
+      imv
+      gammastep
       gcc
       git
       glow
@@ -86,34 +91,42 @@ in {
       gnugrep
       gnumake
       gparted
-      gnugrep
       grim
       grub2
+      jellyfin-mpv-shim
+      jellyfin-media-player
       kitty
       krabby
+      lazycli
       libverto
       lsd
       luarocks
-      lxappearance
       mako
+      mailspring
       mangal
+      macchina
       mangohud
+      mediainfo
+      micro
       mpd
       mpv
+      nap
       navi
       neovim
       neofetch
       nfs-utils
       ninja
       nodejs
-      nomacs
       oh-my-zsh
       openssl
       obsidian
       os-prober
       nerdfonts
+      pandoc
       pass
       pavucontrol
+      playerctl
+      ncmpcpp
       polkit_gnome
       protonup-ng
       python3Full
@@ -133,10 +146,11 @@ in {
       swayidle
       sway-audio-idle-inhibit
       tailscale
+      the-way
+      trashy
       tmux
       terminus-nerdfont
       tldr
-      trash-cli
       unzip
       waybar                                                 # system bar
       wezterm
@@ -145,19 +159,22 @@ in {
       wl-clipboard
       vim
       vscode
+      wofi
       xclip
       xfce.thunar
       xdg-desktop-portal-hyprland
       xdg-desktop-portal-gtk
+      xpipe
       yai
       yazi
       yt-dlp
+      youtube-tui
       zoxide
       zip
+      ueberzugpp
       unzip
       zsh 
       zsh-powerlevel10k
-
       (lutris.override {
         extraPkgs = pkgs: [
           # List package dependencies here

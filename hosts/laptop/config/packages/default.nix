@@ -4,7 +4,9 @@
     ./git
     ./gpg
     ./swaylock
-    ./mako/default.nix
+  #  ./sddm
+  #  ./wlogout
+    ./mako
     ./cli.nix
     ./gammastep.nix
     ./gtk.nix
@@ -14,7 +16,7 @@
     ./ulauncher.nix
     ./starship.nix
     ./tmux.nix
-    ./waybar.nix
+#    ./waybar.nix
     ./wezterm.nix
     ./wofi.nix
     ./xdg.nix

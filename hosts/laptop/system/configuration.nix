@@ -10,19 +10,42 @@
       ./hardware-configuration.nix
     ];
 
-  # Bootloader.
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
+# Bootloader.
 
-  networking.hostName = "osnix"; # Define your hostname.
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
+ boot = {
+    kernelParams = ["nohibernate"];
+    tmp.cleanOnBoot = true;
+    supportedFilesystems = ["ntfs"];
+    loader = {
+      efi.canTouchEfiVariables = true;
+      grub = {
+        device = "nodev";
+        efiSupport = true;
+        enable = true;
+        useOSProber = true;
+        timeoutStyle = "menu";
+      };
+      timeout = 300;
+    };
 
-  # Configure network proxy if necessary
-  # networking.proxy.default = "http://user:password@proxy:port/";
-  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
+    kernelModules = ["tcp_bbr"];
+    kernel.sysctl = {
+      "net.ipv4.tcp_congestion_control" = "bbr";
+      "net.core.default_qdisc" = "fq";
+      "net.core.wmem_max" = 1073741824;
+      "net.core.rmem_max" = 1073741824;
+      "net.ipv4.tcp_rmem" = "4096 87380 1073741824";
+      "net.ipv4.tcp_wmem" = "4096 87380 1073741824";
+    };
+  };
 
-  # Enable networking
-  networking.networkmanager.enable = true;
+# Enable networking
+  networking = {
+    hostName = "osnix";
+    networkmanager.enable = true;
+    enableIPv6 = false;
+    firewall.enable = false;
+  };
 
  # Package mangement
    nix = {
@@ -43,8 +66,7 @@
   nixpkgs = {
     config = {
       allowUnfree = true;
-      allowUnfreePredicate = pkg: builtins.elem (builtins.parseDrvName pkg.name).name ["steam"];
-
+      allowUnfreePredicate = pkg: builtins.elem (builtins.parseDrvName pkg.name).name ["steam"]; 
       permittedInsecurePackages = [
           "openssl-1.1.1v"
           "python-2.7.18.7"
@@ -58,17 +80,31 @@
   # Select internationalisation properties.
   i18n.defaultLocale = "en_CA.UTF-8";
 
-  # Enable the X11 windowing system.
-  services.xserver.enable = true;
+ # Enable the X11 windowing system.
+ 
+ services.xserver = {
+    enable = true;
 
-  # Enable the GNOME Desktop Environment.
-  services.xserver.displayManager.gdm.enable = true;
-  services.xserver.desktopManager.gnome.enable = true;
+    displayManager.sddm.sugarCandyNix = {
+      enable = true; # This enables SDDM automatically and set its theme to
+                     # "sddm-sugar-candy-nix"
+      settings = {
+        # Set your configuration options here.
+        # Here is a simple example:
+#        Background = lib.cleanSource ./background.png;
+        ScreenWidth = 1920;
+        ScreenHeight = 1080;
+        FormPosition = "left";
+        HaveFormBackground = true;
+        PartialBlur = true;
+        # ...
+      };
+    };
+  };
 
   # Configure keymap in X11
   services.xserver = {
-    layout = "us";
-    xkbVariant = "";
+    xkb.layout = "us";
   };
 
   # Enable CUPS to print documents.
@@ -82,19 +118,10 @@
     enable = true;
     alsa.enable = true;
     alsa.support32Bit = true;
-    pulse.enable = true;
-    # If you want to use JACK applications, uncomment this
-    #jack.enable = true;
-
-    # use the example session manager (no others are packaged yet so this is enabled by default,
-    # no need to redefine it in your config for now)
-    #media-session.enable = true;
+   pulse.enable = true;
   };
 
-  # Enable touchpad support (enabled default in most desktopManager).
-  # services.xserver.libinput.enable = true;
-
-  # Define a user account. Don't forget to set a password with ‘passwd’.
+# Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.keeper = {
     isNormalUser = true;
     description = "keeper";
@@ -114,8 +141,7 @@
     ];    
     packages = with pkgs; [
       firefox
-    #  thunderbird
-    ];
+     ];
   };
 
  # Default shell
@@ -124,13 +150,28 @@
   environment.shells = with pkgs; [zsh];
   security.pam.services.swaylock = {};
 
+
+
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-  #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-  #  wget
-  #   kitty
-   #  neovim
+     wget
+     kitty
+     neovim
+#     distrobox
+#     podman-compose
+#     podman-tui
+     libsForQt5.dolphin
+     libsForQt5.ark
+     libsForQt5.gwenview
+     libsForQt5.dolphin-plugins
+     libsForQt5.ffmpegthumbs
+     libsForQt5.kdegraphics-thumbnailers
+     libsForQt5.kio
+     libsForQt5.kio-extras
+     libsForQt5.qtwayland
+     libsForQt5.okular
+     
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -141,32 +182,36 @@
   #   enableSSHSupport = true;
   # };
 
+# Virtualisation
+
+
+
   # List services that you want to enable:
 
-  # Enable the OpenSSH daemon.
   services.openssh.enable = true;
-
+  services.gvfs.enable = true;
   hardware.bluetooth.enable = true;
   services.blueman.enable = true;
   services.gnome.gnome-keyring.enable = true;
-  #flatpak.enable = true;
+  services.tailscale.enable = true;
+  services.dbus.enable = true;
+  services.flatpak.enable = true;
 
-  # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
-  # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
-  
-   services.dbus.enable = true;
-
-   programs.hyprland = {
+# Programs
+programs.hyprland = {
     enable = true;
+  };
+
+ programs.steam = {
+    enable = true;
+    remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
+    dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
   };
 
   xdg.portal = {
     enable = true;
     config.common.default = "*";
-    extraPortals = [pkgs.xdg-desktop-portal-hyprland];
+    extraPortals = [pkgs.xdg-desktop-portal-gtk];
   };
 
   security.polkit.enable = true;
@@ -187,12 +232,5 @@
     };
   };
 
-  # This value determines the NixOS release from which the default
-  # settings for stateful data, like file locations and database versions
-  # on your system were taken. It‘s perfectly fine and recommended to leave
-  # this value at the release version of the first install of this system.
-  # Before changing this value read the documentation for this option
-  # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "23.11"; # Did you read the comment?
-
+    system.stateVersion = "23.11";
 }
