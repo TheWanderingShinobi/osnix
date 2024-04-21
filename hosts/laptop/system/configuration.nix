@@ -39,6 +39,29 @@
     };
   };
 
+  # Better scheduling for CPU cycles - thanks System76!!!
+  services.system76-scheduler.settings.cfsProfiles.enable = true;
+
+  # Enable TLP (better than gnomes internal power manager)
+  services.tlp = {
+    enable = true;
+    settings = {
+      CPU_BOOST_ON_AC = 1;
+      CPU_BOOST_ON_BAT = 0;
+      CPU_SCALING_GOVERNOR_ON_AC = "performance";
+      CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
+    };
+  };
+
+  # Disable GNOMEs power management
+  services.power-profiles-daemon.enable = false;
+
+  # Enable powertop
+  powerManagement.powertop.enable = true;
+
+  # Enable thermald (only necessary if on Intel CPUs)
+  services.thermald.enable = true;
+
 # Enable networking
   networking = {
     hostName = "osnix";
@@ -91,10 +114,10 @@
       settings = {
         # Set your configuration options here.
         # Here is a simple example:
-#        Background = lib.cleanSource ./background.png;
+        Background = lib.cleanSource ~/osnix/hosts/laptop/config/nixos-wallpapers.png;
         ScreenWidth = 1920;
         ScreenHeight = 1080;
-        FormPosition = "left";
+        FormPosition = "center";
         HaveFormBackground = true;
         PartialBlur = true;
         # ...
@@ -158,9 +181,9 @@
      wget
      kitty
      neovim
-#     distrobox
-#     podman-compose
-#     podman-tui
+     distrobox
+     podman-compose
+     podman-tui
      libsForQt5.dolphin
      libsForQt5.ark
      libsForQt5.gwenview
@@ -183,6 +206,19 @@
   # };
 
 # Virtualisation
+ # Enable Podman
+  virtualisation = {
+    podman = {
+      enable = true;
+
+      # Create a `docker` alias for podman, to use it as a drop-in replacement
+      dockerCompat = true;
+
+      # Required for containers under podman-compose to be able to talk to each other.
+      defaultNetwork.settings.dns_enabled = true;
+    };
+  };
+
 
 
 
@@ -198,8 +234,18 @@
   services.flatpak.enable = true;
 
 # Programs
-programs.hyprland = {
+ programs.hyprland.enable = true;
+ programs.hyprland.xwayland.enable = true;
+
+  security.pam.services.swaylock = {};
+  environment.sessionVariables.NIXOS_OZONE_WL = "1";
+
+  xdg.portal = {
     enable = true;
+    extraPortals = with pkgs; [
+      xdg-desktop-portal-gtk
+      xdg-desktop-portal-hyprland
+    ];
   };
 
  programs.steam = {
@@ -208,13 +254,7 @@ programs.hyprland = {
     dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
   };
 
-  xdg.portal = {
-    enable = true;
-    config.common.default = "*";
-    extraPortals = [pkgs.xdg-desktop-portal-gtk];
-  };
-
-  security.polkit.enable = true;
+   security.polkit.enable = true;
 
   systemd = {
     user.services.polkit-gnome-authentication-agent-1 = {

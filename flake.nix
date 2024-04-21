@@ -32,7 +32,8 @@
       specialArgs = {inherit inputs self user;};
       modules = [
         ./hosts/laptop/system/configuration.nix
-#        ./hosts/laptop/system/virtualisation.nix
+#        ./hosts/laptop/system/battery.nix
+#        ./hosts/laptop/system/virtualisation.nixosModules
         home-manager.nixosModules.home-manager
         sddm-sugar-candy-nix.nixosModules.default
         {

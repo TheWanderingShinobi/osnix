@@ -1,185 +1,164 @@
-@import "rose-pine.css";
-
 * {
-  font-family: "Rec Mono Semicasual", "CaskaydiaCove NF";
-  font-size: 15px;
-  min-height: 0;
+    border: none;
+    border-radius: 0px;
+    font-family: "JetBrainsMono Nerd Font";
+    font-weight: bold;
+    font-size: 11px;
+    min-height: 10px;
 }
 
-window.HDMI-A-1 * {
-  font-size: 13px;
+@import "themes/Decay-Green.css";
+
+window#waybar {
+    background: @bar-bg;
 }
 
-window.HDMI-A-1 #window {
-  font-size: 0px;
-  padding: 0;
-  border: 0;
-}
-
-window.HDMI-A-1 #network,
-window.HDMI-A-1 #idle_inhibitor,
-window.HDMI-A-1 #cpu,
-window.HDMI-A-1 #memory,
-window.HDMI-A-1 #backlight,
-window.HDMI-A-1 #clock,
-window.HDMI-A-1 #battery,
-window.HDMI-A-1 #pulseaudio,
-window.HDMI-A-1 #custom-toggl {
-  font-size: 0px;
-  padding: 0;
-  border: 0;
-  margin: 0;
-  background-color: transparent;
-}
-
-#waybar {
-  background: transparent;
-  color: @text;
-  margin: 3px -2px;
-  transition-property: background-color;
-  transition-duration: 1s;
-}
-
-#workspaces {
-  border-radius: 1rem;
-  margin: 3px 0px;
-  font-weight: bold;
-  margin-left: 1rem;
-  background-color: @base;
-  padding: 0.1rem 0.5rem;
-  border: 2px solid @pine;
+tooltip {
+    background: @tool-bg;
+    color: @tool-color;
+    border-radius: 20px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: @tool-border;
 }
 
 #workspaces button {
-  color: @iris;
-  border-radius: 1rem;
-  transition: all 0.3s ease-in-out;
+    box-shadow: none;
+	text-shadow: none;
+    padding: 0px;
+    border-radius: 8px;
+    margin-top: 2px;
+    margin-bottom: 2px;
+    padding-left: 2px;
+    padding-right: 2px;
+    color: @wb-color;
+    animation: gradient_f 20s ease-in infinite;
+    transition: all 0.5s cubic-bezier(.55,-0.68,.48,1.682);
 }
 
 #workspaces button.active {
-  color: @base;
-  background-color: @pine;
-  border-radius: 1rem;
-  transition: all 0.3s ease-in-out;
-  padding: 0.1rem 3rem;
+    background: @wb-act-bg;
+    color: @wb-act-color;
+    margin-left: 2px;
+    padding-left: 11px;
+    padding-right: 11px;
+    margin-right: 2px;
+    animation: gradient_f 20s ease-in infinite;
+    transition: all 0.3s cubic-bezier(.55,-0.68,.48,1.682);
 }
 
 #workspaces button:hover {
-  color: @foam;
-  border-radius: 1rem;
-  transition: all 0.3s ease-in-out;
-  padding: 0.1rem 3rem;
+    background: @wb-hvr-bg;
+    color: @wb-hvr-color;
+    padding-left: 2px;
+    padding-right: 2px;
+    animation: gradient_f 20s ease-in infinite;
+    transition: all 0.3s cubic-bezier(.55,-0.68,.48,1.682);
 }
 
-#taskbar,
-#window {
-  border-radius: 1rem;
-  margin: 3px 0px;
-  background-color: @base;
-  border: 2px solid @pine;
-  margin-left: 1rem;
-  padding: 0.1rem 1rem;
+#taskbar button {
+    box-shadow: none;
+	text-shadow: none;
+    padding: 0px;
+    border-radius: 8px;
+    margin-top: 2px;
+    margin-bottom: 2px;
+    padding-left: 2px;
+    padding-right: 2px;
+    color: @wb-color;
+    animation: gradient_f 20s ease-in infinite;
+    transition: all 0.5s cubic-bezier(.55,-0.68,.48,1.682);
+}
+
+#taskbar button.active {
+    background: @wb-act-bg;
+    color: @wb-act-color;
+    margin-left: 2px;
+    padding-left: 11px;
+    padding-right: 11px;
+    margin-right: 2px;
+    animation: gradient_f 20s ease-in infinite;
+    transition: all 0.3s cubic-bezier(.55,-0.68,.48,1.682);
 }
 
 #taskbar button:hover {
-  color: @foam;
-  border-radius: 1rem;
-  transition: all 0.3s ease-in-out;
-  /* padding: 0.1rem 2rem; */
-  padding-left: 2rem;
-  padding-right: 2rem;
+    background: @wb-hvr-bg;
+    color: @wb-hvr-color;
+    padding-left: 2px;
+    padding-right: 2px;
+    animation: gradient_f 20s ease-in infinite;
+    transition: all 0.3s cubic-bezier(.55,-0.68,.48,1.682);
 }
 
-#network,
-#idle_inhibitor,
 #cpu,
 #memory,
-#tray,
-#backlight,
-#clock,
 #battery,
+#clock,
+#workspaces,
+#window,
+#taskbar,
+#network,
+#bluetooth,
 #pulseaudio,
-#custom-toggl {
-  background-color: @base;
-  padding: 0.1rem 0.7rem;
-  margin: 3px 0;
-  /* border-top: 4px solid @pine;
-  border-bottom: 4px solid @pine; */
-  border: 2px solid @pine;
-}
-
-#network {
-  color: @text;
-  margin-left: 0px;
-  margin-right: 0px;
-}
-
-#cpu {
-  color: @rose;
-}
-
-#memory {
-  color: @gold;
-}
-
-#custom-toggl {
-  color: @iris;
-}
-
-#clock {
-  color: @rose;
-  border-radius: 0px 1rem 1rem 0px;
-  margin-right: 1rem;
-  border-right: 4px solid @pine;
-}
-
-#battery {
-  color: @rose;
-}
-
-#battery.charging {
-  color: @rose;
-}
-
-#battery.warning:not(.charging) {
-  color: @pine;
-}
-
-#backlight {
-  color: @gold;
-}
-
-#backlight,
-#battery {
-  border-radius: 0;
-}
-
-#pulseaudio {
-  color: @love;
-  border-radius: 1rem 0px 0px 1rem;
-  margin-left: 1rem;
-  border-left: 4px solid @pine;
-}
-
-#custom-music {
-  color: @iris;
-  border-radius: 1rem;
-}
-
-#custom-lock {
-  border-radius: 1rem 0px 0px 1rem;
-  color: @foam;
-}
-
-#custom-power {
-  margin-right: 1rem;
-  border-radius: 0px 1rem 1rem 0px;
-  color: @pine;
-}
-
+#mpris,
+#custom-updates,
+#custom-wallchange,
+#custom-mode,
+#custom-cliphist,
+#custom-power,
+#custom-wbar,
+#custom-l_end,
+#custom-r_end,
+#custom-sl_end,
+#custom-sr_end,
+#custom-rl_end,
+#custom-rr_end,
 #tray {
-  margin-right: 1rem;
-  border-radius: 1rem;
-  border-right: 4px solid @pine;
-  border-left: 4px solid @pine;
+    color: @main-color;
+    background: @main-bg;
+    opacity: 1;
+    margin: 4px 0px 4px 0px;
+    padding-left: 4px;
+    padding-right: 4px;
+}
+
+#workspaces,
+#taskbar {
+    padding: 0px;
+}
+
+#custom-r_end {
+    border-radius: 0px 20px 20px 0px;
+    margin-right: 8px;
+    padding-right: 0px;
+}
+
+#custom-l_end {
+    border-radius: 20px 0px 0px 20px;
+    margin-left: 8px;
+    padding-left: 0px;
+}
+
+#custom-sr_end {
+    border-radius: 0px;
+    margin-right: 8px;
+    padding-right: 0px;
+}
+
+#custom-sl_end {
+    border-radius: 0px;
+    margin-left: 8px;
+    padding-left: 0px;
+}
+
+#custom-rr_end {
+    border-radius: 0px 7px 7px 0px;
+    margin-right: 8px;
+    padding-right: 0px;
+}
+
+#custom-rl_end {
+    border-radius: 7px 0px 0px 7px;
+    margin-left: 8px;
+    padding-left: 0px;
 }

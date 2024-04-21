@@ -4,14 +4,16 @@
     ./git
     ./gpg
     ./swaylock
+    ./floorp
+    ./waybar
   #  ./sddm
-  #  ./wlogout
+#    ./wlogout
     ./mako
     ./cli.nix
     ./gammastep.nix
     ./gtk.nix
     ./kitty.nix
-    ./qt5.nix
+#    ./qt5.nix
     ./rofi.nix
     ./ulauncher.nix
     ./starship.nix
