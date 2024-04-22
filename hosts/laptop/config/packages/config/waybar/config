@@ -21,26 +21,33 @@
     "tray"
   ],
   // Modules configuration
-  "hyprland/workspaces": {
-    "disable-scroll": true,
-    "all-outputs": false,
-    "warp-on-scroll": false,
-    "format": "<span><b>{icon}</b></span>",
-    "format-icons": {
-      "1": "一",
-      "2": "二",
-      "3": "三",
-      "4": "四",
-      "5": "五",
-      "6": "六",
-      "7": "七",
-      "8": "八",
-      "9": "九",
-      "urgent": "",
-      "focused": "",
-      "default": "󰧞"
-    }
-  },
+  
+ "hyprland/workspaces" = {
+          "on-click" = "activate";
+          format = "{icon}";
+          "format-icons" = {
+            "default" = "";
+            "1" = "";
+            "2" = "";
+						"3" = "";
+            "4" = "";
+            "5" = "";
+            "6" = "";
+            "7" = "7";
+            "8" = "8";
+            "9" = "9";
+            "active" = "󱓻";
+            "urgent" = "󱓻";
+          };
+          "persistent-workspaces" = {
+            "1" = [ ];
+            "2" = [ ];
+            "3" = [ ];
+            "4" = [ ];
+            "5" = [ ];
+          };
+        };
+
   "wlr/taskbar": {
     "all-outputs": false
   },

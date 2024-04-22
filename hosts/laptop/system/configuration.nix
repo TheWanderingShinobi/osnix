@@ -93,6 +93,7 @@
       permittedInsecurePackages = [
           "openssl-1.1.1v"
           "python-2.7.18.7"
+          "python-2.7.18.8"
       ];
     };
   };
@@ -114,7 +115,7 @@
       settings = {
         # Set your configuration options here.
         # Here is a simple example:
-        Background = lib.cleanSource ~/osnix/hosts/laptop/config/nixos-wallpapers.png;
+        Background = lib.cleanSource ./nixos-wallpapers.png;
         ScreenWidth = 1920;
         ScreenHeight = 1080;
         FormPosition = "center";

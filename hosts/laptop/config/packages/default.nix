@@ -5,7 +5,7 @@
     ./gpg
     ./swaylock
     ./floorp
-    ./waybar
+#    ./waybar
   #  ./sddm
 #    ./wlogout
     ./mako
@@ -13,7 +13,7 @@
     ./gammastep.nix
     ./gtk.nix
     ./kitty.nix
-#    ./qt5.nix
+    ./qt5.nix
     ./rofi.nix
     ./ulauncher.nix
     ./starship.nix

@@ -93,6 +93,7 @@ in {
       gparted
       grim
       grub2
+      gsettings-qt
       jellyfin-mpv-shim
       jellyfin-media-player
       kitty
@@ -122,6 +123,7 @@ in {
       obsidian
       os-prober
       nerdfonts
+      pamixer
       pandoc
       pass
       pavucontrol
